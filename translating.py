@@ -22,12 +22,13 @@ def translate(model):
         filepaths.append(os.path.join(files))
         
     for files in filepaths:
-        #new_name = "tl-" + files # create a new filename for translated files
-        file = open("train_files\\" + files,'r', encoding="utf8") # read file to be translated
+        traindir = os.path.join("train_files", files)
+        tldir = os.path.join("DONE", files)
+        file = open(traindir,'r', encoding="utf8") # read file to be translated
         print("Translating " + files)
         for i in file.readlines():
             result = model(i)[0]['translation_text'] # translate
-            with open("DONE\\" + files[:-3] + "-tl.da", "a", encoding="utf8") as f: # make a new file and add the translation to it. add -tl and the correct language name to filename
+            with open(tldir[:-3] + "-tl.da", "a", encoding="utf8") as f: # make a new file and add the translation to it. add -tl and the correct language name to filename
                 f.write(result + "\n")
 
 def main():
